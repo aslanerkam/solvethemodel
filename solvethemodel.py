@@ -5,13 +5,18 @@ costs = {'mesai': 20, 'fazlamesai': 26, 'stoktutma': 2, 'eksikurun': 35}
 
 
 class Product:
-    def __init__(self, demand):
-        self.demand = demand
+    def __init__(self, filename):
+        file = open(filename, "r")
+        demanddata = [int(x) for x in file.read().split(',')]
+        self.demand = demanddata
         self.production = []
         self.overproduction = []
         self.stock = []
 
-product1 = Product([18, 11, 28, 16, 38, 26, 34, 33])  # demand değerleri biyerden okunmalıydı ama ben elle girdim.
+
+
+product1 = Product('demand.txt')
+#product1 = Product([18, 11, 28, 16, 38, 26, 34, 33])  # demand değerleri biyerden okunmalıydı ama ben elle girdim.
 
 
 def solve(Product):
