@@ -16,7 +16,6 @@ class Product:
 
 
 product1 = Product('demand.txt')
-#product1 = Product([18, 11, 28, 16, 38, 26, 34, 33])  # demand değerleri biyerden okunmalıydı ama ben elle girdim.
 
 
 def solve(Product):
