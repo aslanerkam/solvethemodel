@@ -18,9 +18,9 @@ class Product:
 product1 = Product('demand.txt')
 
 
-def solve(Product):
-    Product.production = [17, 11, 30, 18, 34, 28, 30, 30]  # bunlar solverın hesabının sonucu olacak aslında
-    Product.overproduction = [0, 0, 0, 0, 0, 0, 0, 0]
+def solve(Product, initialvalues = [], overinitialvalues = []):
+    Product.production = initialvalues
+    Product.overproduction = overinitialvalues
     stockcalculate(Product)
     print(costcalculate(Product))
 
@@ -52,7 +52,7 @@ def costcalculate(Product):
 
 
 
-solve(product1)
+solve(product1, [10,10,10,10,10,10,10,10], [1,2,3,4,5,6,7,8])
 
 
 print(product1.demand)
