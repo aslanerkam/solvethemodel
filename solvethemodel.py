@@ -52,7 +52,7 @@ def costcalculate(Product):
 
 
 
-solve(product1, [10,10,10,10,10,10,10,10], [1,2,3,4,5,6,7,8])
+solve(product1, [10,10,28,16,38,26,34,33], [10,10,28,16,38,26,34,33])
 
 
 print(product1.demand)
