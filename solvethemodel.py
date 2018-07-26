@@ -12,6 +12,7 @@ class Product:
         self.production = []
         self.overproduction = []
         self.stock = []
+        self.negativestock = []
 
 
 
@@ -29,16 +30,16 @@ def stockcalculate(Product):
     for j, pro in enumerate(Product.production):
         if j == 0:
             Product.stock.append(Product.production[j] + Product.overproduction[j] - Product.demand[j])
+            Product.negativestock.append(0)
             if Product.stock[j] < 0:
-                Product.stock[j] = 0
-        elif Product.stock[j - 1] < 0:
-            Product.stock.append(Product.production[j] + Product.overproduction[j] - Product.demand[j])
-            if Product.stock[j] < 0:
+                Product.negativestock[j] = Product.stock[j]
                 Product.stock[j] = 0
         else:
             Product.stock.append(
                 Product.stock[j - 1] + Product.production[j] + Product.overproduction[j] - Product.demand[j])
+            Product.negativestock.append(0)
             if Product.stock[j] < 0:
+                Product.negativestock[j] = Product.stock[j]
                 Product.stock[j] = 0
 
 
@@ -46,20 +47,14 @@ def stockcalculate(Product):
 def costcalculate(Product):
     cost = 0
     for j, pro in enumerate(Product.production):
-        if Product.stock[j] < 0:
-            cost = cost + costs['mesai'] * pro + costs['fazlamesai'] * Product.overproduction[j] + costs['eksikurun'] * \
-                   Product.stock[j]
-        elif Product.stock[j - 1] > 0:
-            cost = cost + costs['mesai'] * pro + costs['fazlamesai'] * Product.overproduction[j] + costs['stoktutma'] * \
-                   Product.stock[j - 1]
-        else:
-            cost = cost + costs['mesai'] * pro + costs['fazlamesai'] * Product.overproduction[j]
+        cost = cost + costs['mesai'] * pro + costs['fazlamesai'] * Product.overproduction[j] - costs['eksikurun'] * Product.negativestock[j] + costs['stoktutma'] * Product.stock[j]
     return cost
 
 
 
-solve(product1, [25,10,24,1,30,2,30,2], [10,10,10,10,10,10,10,10])
+solve(product1, [8,2,2,1,30,2,3,2], [20,10,10,10,10,10,40,10])
 
 
 print(product1.demand)
 print(product1.stock)
+print(product1.negativestock)
