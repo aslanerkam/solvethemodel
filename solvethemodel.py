@@ -29,11 +29,17 @@ def stockcalculate(Product):
     for j, pro in enumerate(Product.production):
         if j == 0:
             Product.stock.append(Product.production[j] + Product.overproduction[j] - Product.demand[j])
+            if Product.stock[j] < 0:
+                Product.stock[j] = 0
         elif Product.stock[j - 1] < 0:
             Product.stock.append(Product.production[j] + Product.overproduction[j] - Product.demand[j])
+            if Product.stock[j] < 0:
+                Product.stock[j] = 0
         else:
             Product.stock.append(
                 Product.stock[j - 1] + Product.production[j] + Product.overproduction[j] - Product.demand[j])
+            if Product.stock[j] < 0:
+                Product.stock[j] = 0
 
 
 
@@ -52,7 +58,7 @@ def costcalculate(Product):
 
 
 
-solve(product1, [10,10,28,16,38,26,34,33], [0,0,0,0,0,0,0,0])
+solve(product1, [25,10,24,1,30,2,30,2], [10,10,10,10,10,10,10,10])
 
 
 print(product1.demand)
